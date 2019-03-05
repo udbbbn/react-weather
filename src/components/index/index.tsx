@@ -12,9 +12,9 @@ const {
 export default class index extends Component {
   render() {
     return (
-        <div className="page">
-            <Layout className="page">
-                <Header className="c000">
+        <div className="i-page">
+            <Layout className="i-page">
+                <Header className="i-c000">
                     <Nav></Nav>
                 </Header>
                 <Content>

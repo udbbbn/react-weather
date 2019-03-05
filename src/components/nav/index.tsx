@@ -40,14 +40,14 @@ export default class nav extends Component<{},Istate> {
 
   render() {
     return (
-      <div className="page">
+      <div className="n-page">
           <Search
             placeholder="输入城市名(中文)"
             onSearch={value => console.log(value)}
             style={{ width: 200 }}
           />
           <Tooltip title={this.state.time}>
-            <span className="floatR cfff">{this.state.time}</span>
+            <span className="n-floatR n-cfff">{this.state.time}</span>
           </Tooltip>
       </div>
     )
