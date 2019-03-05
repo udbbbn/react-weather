@@ -19,7 +19,9 @@
     "redux": "^3.7.2"
   },
   "devDependencies": {
+    "@types/node": "^11.10.4",
     "@types/react": "^16.8.4",
+    "@types/react-css-modules": "^4.6.2",
     "@types/react-dom": "^16.8.2",
     "css-loader": "^2.1.0",
     "less": "^3.9.0",

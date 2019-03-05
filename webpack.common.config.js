@@ -29,21 +29,21 @@ module.exports = {
                         loader: "style-loader"
                     },
                     {
-                        // loader: "css-loader",
-                        // options: {
-                        //     // scoped作用
-                        //     modules: true,
-                        //     importLoaders: 1,
-                        //     localIdentName: "[local]_[hash:base64:8]"
-                        // }
-                        loader: 'typings-for-css-modules-loader',
+                        loader: "css-loader",
                         options: {
-                            modules: true,
-                            namedExport: true,
-                            camelCase: true,
-                            minimize: true,
-                            localIdentName: "[local]_[hash:base64:5]"
+                            // scoped作用
+                            // modules: true,
+                            // importLoaders: 1,
+                            // localIdentName: "[local]_[hash:base64:8]"
                         }
+                        // loader: 'typings-for-css-modules-loader',
+                        // options: {
+                        //     modules: true,
+                        //     namedExport: true,
+                        //     camelCase: true,
+                        //     minimize: true,
+                        //     localIdentName: "[local]_[hash:base64:5]"
+                        // }
                     },
                     {
                         loader: "less-loader",
@@ -79,6 +79,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.WatchIgnorePlugin([/css\.d\.ts$/])
+        // new webpack.WatchIgnorePlugin([/css\.d\.ts$/])
     ],
 }
