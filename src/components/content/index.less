@@ -22,19 +22,40 @@
             &-img {
                 width: 80px;
                 height: 80px;
+                margin-right: 20px;
             }
             &-text {
                 display: inline-block;
-                font-size: 35px;
+                font-size: 27px;
                 color: #fff;
             }
         }
-        
-    }
-    .fs20 {
-        font-size: 20px;
-    }
-    .fs150 {
-        font-size: 150px;
+        &-center {
+            &-top {
+                display: flex;
+                align-items: center;
+                & > div {
+                    margin-right: 20px;
+                }
+                &-text {
+                    display: inline-block;
+                    font-size: 18px;
+                    color: #fff;
+                }
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+        &-bottom {
+            margin-top: 20px;
+            .ant-table-thead > tr > th {
+                background-color: #000;
+                & > div {
+                    color: #fff;
+                }
+            }
+        }
     }
 }
