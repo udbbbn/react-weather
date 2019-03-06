@@ -18,7 +18,7 @@ export default class index extends Component {
                 <Header className="i-c000">
                     <Nav></Nav>
                 </Header>
-                <Content>
+                <Content className="i-bg">
                     <Main>3</Main>
                 </Content>
                 {/* <Footer>2</Footer> */}
