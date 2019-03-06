@@ -150,7 +150,7 @@ export default class content extends Component<{}, Istate> {
         temp: `${el.low}°/${el.high}°`,
         weather: hour === '上午' ? el.text_day : el.text_night,
         wind_dire: el.wind_direction,
-        wind_speed: el.wind_speed + '级',
+        wind_speed: el.wind_speed + 'km/h',
         wind_scale: el.wind_scale + '级'
       })
     });
