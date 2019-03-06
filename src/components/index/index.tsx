@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Layout } from 'antd';
 import 'antd/lib/layout/style';
 import './index.less';
+import '@/assets/css/global.less';
 import Nav from '../nav';
 import Main from '../content';
 
@@ -20,7 +21,7 @@ export default class index extends Component {
                 <Content>
                     <Main>3</Main>
                 </Content>
-                <Footer>2</Footer>
+                {/* <Footer>2</Footer> */}
             </Layout>
         </div>
     )
