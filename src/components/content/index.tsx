@@ -139,9 +139,14 @@ export default class content extends Component<{}, Istate> {
     let res: Array<object> = [];
     let hour:string = new Date().getHours() > 12 ? '下午' : '上午';
     data.map((el: any, index: number) => {
+      let elDate = new Date(el.date).getDate();
+      let nowDate = new Date().getDate();
+      let date:string = elDate === nowDate ? '今天' 
+                        : elDate - nowDate == 1 ? '明天'
+                        : '后天';
       res.push({
         key: index,
-        date: el.date,
+        date: date,
         temp: `${el.low}°/${el.high}°`,
         weather: hour === '上午' ? el.text_day : el.text_night,
         wind_dire: el.wind_direction,
