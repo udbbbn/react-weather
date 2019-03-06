@@ -1,10 +1,11 @@
 .c-page {
     width: 90%;
     margin: 0 auto;
-    height: 100%;
     .c-nav {
         margin: 25px 0 0;
-
+        .ant-breadcrumb-link, .ant-breadcrumb-separator {
+            color: #fff;
+        }
     }
     .c-weather {
         &-top {
@@ -53,6 +54,12 @@
             .ant-table-thead > tr > th {
                 background-color: #000;
                 & > div {
+                    color: #fff;
+                }
+            }
+            .ant-table-tbody {
+                background-color: rgba(0,0,0,0.45);
+                & > tr > td {
                     color: #fff;
                 }
             }
