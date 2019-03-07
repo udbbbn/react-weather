@@ -5,6 +5,7 @@ import {Breadcrumb, Table} from 'antd';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import jsonp from "jsonp";
 import CryptoJS from 'crypto-js';
+import { store } from "../../store/index";
 
 import './index.less';
 
@@ -69,7 +70,8 @@ export default class content extends Component<{}, Istate> {
       location: {},
       weather: {},
       dailyWeather: {}
-    }
+    };
+    store.subscribe(this.listenUpdate.bind(this));
   }
 
   /**
@@ -94,11 +96,14 @@ export default class content extends Component<{}, Istate> {
   /**
    * 调用心知天气获取当前天气
    */
-  getWeather() {
+  getWeather(
+    loca: string = 'this.state.location.address_detail.city',
+
+    ) {
     let vm:this = this;
-    let location:string = vm.state.location.address_detail.city;
+    let location:string = loca;
     let apiRouter:string = "now.json";
-    let api:string = `${this.API}${apiRouter}?location=${location}&${this.str}&start=0&days=5`;
+    let api:string = `${this.API}${apiRouter}?location=${location}&${this.str}`;
     jsonp(`${api}`,(err, res) => {
       if (err) {
         alert('天气获取失败');
@@ -118,7 +123,7 @@ export default class content extends Component<{}, Istate> {
     let vm:this = this;
     let location = vm.state.location.address_detail.city;
     let apiRouter:string = "daily.json";
-    let api:string = `${this.API}${apiRouter}?location=${location}&${this.str}`;
+    let api:string = `${this.API}${apiRouter}?location=${location}&${this.str}&start=0&days=5`;
     jsonp(`${api}`,(err, res) => {
       if (err) {
         alert('未来天气获取失败');
@@ -155,6 +160,14 @@ export default class content extends Component<{}, Istate> {
       })
     });
     return res
+  }
+
+  /**
+   * redux 更换城市
+   */
+  listenUpdate() {
+    let { text } = store.getState();
+    this.getWeather(text);
   }
 
   componentDidMount() {

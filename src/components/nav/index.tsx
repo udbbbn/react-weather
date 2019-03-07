@@ -3,6 +3,8 @@ import 'antd/lib/input/style';
 import 'antd/lib/tooltip/style';
 import './index.less';
 import { Input, Tooltip } from 'antd';
+import { store } from "../../store/index";
+import { update } from "../../store/action";
 
 interface Istate {
   time: string
@@ -25,6 +27,9 @@ export default class nav extends Component<{},Istate> {
     }, 1000)
   }
 
+  /**
+   * 获取当前时间并格式化
+   */
   getTime(): string {
     const time = new Date();
     let year = time.getFullYear();
@@ -38,12 +43,20 @@ export default class nav extends Component<{},Istate> {
     return `${year}/${month}/${day} ${temp}${hour}:${minutes}:${seconds}`
   }
 
+  /**
+   * 更换城市
+   * @param value 城市名
+   */
+  updateCity(value: string) {
+    store.dispatch(update(value));
+  }
+
   render() {
     return (
       <div className="n-page">
           <Search
             placeholder="输入城市名(中文)"
-            onSearch={value => console.log(value)}
+            onSearch={this.updateCity}
             style={{ width: 200 }}
           />
           <Tooltip title={this.state.time}>
