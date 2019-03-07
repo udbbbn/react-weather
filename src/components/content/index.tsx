@@ -10,9 +10,13 @@ import { store } from "../../store/index";
 import './index.less';
 
 interface Istate {
-  location: any, // 接口直接any
   weather: any,
-  dailyWeather: any
+  dailyWeather: any,
+  location: location
+}
+interface location {
+  province: string,
+  city: string
 }
 
 export default class content extends Component<{}, Istate> {
@@ -27,12 +31,8 @@ export default class content extends Component<{}, Istate> {
   // 并将加密结果用 base64 编码，并做一个 urlencode，得到签名 sig
   private sig:string  = CryptoJS.HmacSHA1(this.str, this.KEY).toString(CryptoJS.enc.Base64);
   // private sig = encodeURIComponent(this.sig);
-  public location:object = {};
   public weather:object = {};
   public dailyWeather:object = {};
-  // 百度地图API
-  private AK: string = "aUoynAD2ywl2KpslltOQ0etEFEsqzj9i";
-  private baiduAPI: string = "http://api.map.baidu.com/location/ip?";
 
   // antd 表格columns
   public columns:Array<object> = [{
@@ -67,49 +67,40 @@ export default class content extends Component<{}, Istate> {
     this.sig = encodeURIComponent(this.sig);
     this.str = this.str + "&sig=" + this.sig;
     this.state = {
-      location: {},
       weather: {},
-      dailyWeather: {}
+      dailyWeather: {},
+      location: {
+        province: '',
+        city: ''
+      }
     };
     store.subscribe(this.listenUpdate.bind(this));
-  }
-
-  /**
-   * 获取当前ip的地理位置
-   */
-  getGeoLocation() {
-    let vm:this = this;
-    jsonp(`${this.baiduAPI}&ak=${this.AK}&coor=bd09ll`, (err, res) => {
-      if (err) {
-        alert('位置获取失败');
-      } else {
-        vm.setState({
-          location: res.content
-        })
-        console.log(vm.state.location);
-        vm.getWeather();
-        vm.getDailyWeather();
-      }
-    })
   }
 
   /**
    * 调用心知天气获取当前天气
    */
   getWeather(
-    loca: string = 'this.state.location.address_detail.city',
-
+    location: string = 'ip',
     ) {
     let vm:this = this;
-    let location:string = loca;
     let apiRouter:string = "now.json";
     let api:string = `${this.API}${apiRouter}?location=${location}&${this.str}`;
     jsonp(`${api}`,(err, res) => {
       if (err) {
-        alert('天气获取失败');
+        alert(err);
       } else {
+        let { path } = res.results[0].location;
+        path = path.split(',').reverse();
+        let location:location = {
+          province: path[1],
+          city: path[2]
+        }
         vm.setState({
           weather: res.results[0]
+        })
+        vm.setState({
+          location: location
         })
         console.log(vm.state.weather);
       }
@@ -119,14 +110,15 @@ export default class content extends Component<{}, Istate> {
   /**
    * 心知天气-获取未来3天天气
    */
-  getDailyWeather() {
+  getDailyWeather(
+    location: string = 'ip',
+    ) {
     let vm:this = this;
-    let location = vm.state.location.address_detail.city;
     let apiRouter:string = "daily.json";
     let api:string = `${this.API}${apiRouter}?location=${location}&${this.str}&start=0&days=5`;
     jsonp(`${api}`,(err, res) => {
       if (err) {
-        alert('未来天气获取失败');
+        alert(err);
       } else {
         vm.dataSource = vm.formatData(res.results[0].daily);
         vm.setState({
@@ -168,20 +160,23 @@ export default class content extends Component<{}, Istate> {
   listenUpdate() {
     let { text } = store.getState();
     this.getWeather(text);
+    this.getDailyWeather(text);
   }
 
   componentDidMount() {
-    this.getGeoLocation();
+    let vm = this;
+    vm.getWeather();
+    vm.getDailyWeather();
   }
   
 
   renderCity() {
-    if (this.state.location['address_detail']) {
+    if (this.state.location['province']) {
       return (
         <>
           <Breadcrumb separator=">" className="fs20">
-            <BreadcrumbItem>{this.state.location.address_detail.province}</BreadcrumbItem>
-            <BreadcrumbItem>{this.state.location.address_detail.city}</BreadcrumbItem>
+            <BreadcrumbItem>{this.state.location.province}</BreadcrumbItem>
+            <BreadcrumbItem>{this.state.location.city}</BreadcrumbItem>
           </Breadcrumb>
         </>
       );
