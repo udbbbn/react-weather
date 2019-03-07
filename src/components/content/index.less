@@ -59,6 +59,11 @@
             }
             .ant-table-tbody {
                 background-color: rgba(0,0,0,0.45);
+                & > tr {
+                    &:hover:not(.ant-table-expanded-row) > td {
+                        background: #4e4e4e!important;
+                    }
+                }
                 & > tr > td {
                     color: #fff;
                 }
