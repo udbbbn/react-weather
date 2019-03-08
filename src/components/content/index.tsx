@@ -22,7 +22,6 @@ interface location {
 export default class content extends Component<{}, Istate> {
   // 知心天气API
   private API:string = "https://api.seniverse.com/v3/weather/";
-  // private userId = "UDBA707165";
   private KEY:string  = "6caevcsvwkmtunzl";
   private uid:string  = "UDBA707165";
   private ts:number = Math.floor((new Date()).getTime() / 1000);// 获取当前时间戳
