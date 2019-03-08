@@ -185,8 +185,11 @@ export default class content extends Component<{}, Istate> {
 
   renderWeather() {
     if (this.state.weather['location'] && this.state.dailyWeather['daily']) {
-      let code = `/src/assets/img/${this.state.weather.now.code}.png`;
+      // let code = `../../assets/img/${this.state.weather.now.code}.png`;
+      let code = require(`../../assets/img/${this.state.weather.now.code}.png`);
       let drop = this.state.dailyWeather.daily[0].precip;
+      let dropImg = require('../../assets/img/drop.png');
+      let windDire = require('../../assets/img/wind-dire.png');
       let wind = this.state.dailyWeather.daily[0].wind_direction;
       return (
         <>
@@ -202,11 +205,11 @@ export default class content extends Component<{}, Istate> {
             <div className="c-weather-center">
               <div className="c-weather-center-top">
                 <div className="flex-c-null">
-                  <img src="/src/assets/img/drop.png" alt="" />
+                  <img src={dropImg} alt="" />
                   <span className="c-weather-center-top-text">降水量{drop ? drop : '0.0'}</span>
                 </div>
                 <div className="flex-c-null">
-                  <img src="/src/assets/img/wind-dire.png" alt="" />
+                  <img src={windDire} alt="" />
                   <span className="c-weather-center-top-text">{wind}</span>
                 </div>
               </div>
