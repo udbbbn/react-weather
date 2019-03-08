@@ -42,16 +42,14 @@ module.exports = merge(config, {
         ]
     },
     plugins: [
-        // new CleanWebpackPlugin(['dist'],
-        // {
-        //     root: __dirname,       　　　　　　　　　　//根目录
-        //     verbose:  true,        　　　　　　　　　　//开启在控制台输出信息
-        //     dry:      false        　　　　　　　　　　//启用删除文件
-        // }),
-        new ExtractTextPlugin({ //
+        new CleanWebpackPlugin({
+                root: path.resolve(__dirname, 'dist'),
+                exclude: ['assets'],
+                dry: false // 启用删除文件
+        }),
+        new ExtractTextPlugin({ 
             filename: '[name].min.css' // 配置提取出来的css名称
         }),
-        // new webpack.optimize.UglifyJsPlugin(),
         new HtmlWebpackPlugin({
             inject: true,
             template: __dirname + '/public/index.html',
