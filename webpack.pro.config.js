@@ -5,11 +5,26 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin=require('uglifyjs-webpack-plugin');
 
 module.exports = merge(config, {
-    entry: [
-        __dirname + '/src/index.tsx',
-    ],
+    entry: {
+        main: [
+            __dirname + '/src/index.tsx',
+        ],
+        vendor: [
+            "react",
+            "react-dom",
+            "redux",
+            "antd"
+        ]
+    },
+    // externals: {
+    //     "antd": "antd",
+    //     "React": "React",
+    //     "ReactDOM": "ReactDOM",
+    //     'Redux': 'Redux'
+    // },
     output: {
         path: __dirname + '/dist',
         publicPath: "./",
@@ -51,7 +66,7 @@ module.exports = merge(config, {
             filename: '[name].min.css' // 配置提取出来的css名称
         }),
         new HtmlWebpackPlugin({
-            inject: true,
+            inject: 'body',
             template: __dirname + '/public/index.html',
             filename: "index.html",
             minify: {
@@ -67,6 +82,27 @@ module.exports = merge(config, {
               minifyURLs: true,
             },
         }),
-    ]
+        
+        // new UglifyJsPlugin()
+    ],
+    optimization: {
+        runtimeChunk: {
+            name: "manifest"
+        },
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendor",
+                    chunks: "all"
+                }
+            }
+        }
+    }
+    //  //压缩js webpack4之后的新写法
+    // optimization: {
+    //     minimizer: [
+    //     ]
+    // }
 })
 
