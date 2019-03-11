@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import 'antd/lib/breadcrumb/style';
 import 'antd/lib/table/style';
-import {Breadcrumb, Table} from 'antd';
+import Breadcrumb from 'antd/lib/breadcrumb';
+import Table from 'antd/lib/table';
 import BreadcrumbItem from 'antd/lib/breadcrumb/BreadcrumbItem';
 import jsonp from "jsonp";
 import CryptoJS from 'crypto-js';

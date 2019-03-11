@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import 'antd/lib/input/style';
 import 'antd/lib/tooltip/style';
 import './index.less';
-import { Input, Tooltip } from 'antd';
+import Input from 'antd/lib/input';
+import Tooltip from 'antd/lib/tooltip';
 import { store } from "../../store/index";
 import { update } from "../../store/action";
 
