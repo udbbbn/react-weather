@@ -12,6 +12,8 @@
 ### 项目效果
 ![](https://raw.githubusercontent.com/udbbbn/Img/master/1552034262(1).jpg)
 
+[线上点击查看](http://47.106.147.245/weather/ "线上")
+
 ### 开始
 	
 	npm i 
